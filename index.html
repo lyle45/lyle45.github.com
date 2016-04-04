@@ -8,6 +8,7 @@
 </head>
 <body>
 <div ng-controller="notesController">
+	<div class="overlay">
 	<div id="uppart">
 		<h1>My Task Board</h1>
 		<form ng-submit="addButton()">
@@ -23,16 +24,33 @@
 	</div> <!--/#uppart -->
 	<div id="downpart">
 		<ul class="notes-list">
-			<li class="note" ng-repeat="note in notesArray">
-				<i class="fa fa-times" ng-click="removeNote(note)"></i>
-				<p><b>title: </b>{{note.title}}</p>
-				<p><b>until: </b>{{note.when}}</p>
-				<p><b>description: </b>{{note.description}}</p>
+			<li class="note"  ng-class="{inedit: note.inEdit}" ng-repeat="note in notesArray">
+				<div>
+					<div>
+						<div ng-show=!note.inEdit> <!--note display-->
+							<i class="fa fa-times" ng-click="removeNote(note)"></i>
+							<i class="fa fa-pencil" ng-click="editNote(note) "></i>
+							<p><b>title: </b>{{note.title}}</p>
+							<p><b>until: </b>{{note.when}}</p>
+							<p><b>description: </b>{{note.description}}</p>
+						</div> <!--/note display-->
+						<form ng-submit="saveEditedNote(note)" ng-show=note.inEdit> <!--note edit form-->
+							<label>Title:</label>
+							<input type="text" ng-model="note.title">
+							<label>Deadline:</label>
+							<input type="text" ng-model="note.when">
+							<label>Decription:</label>
+							<textarea ng-model="note.description"></textarea>
+							<input type="submit" value="Save">
+						</form> <!--/note edit form-->
+					</div>
+				</div>
 			</li><!--/.note-->
 		</ul><!--/.notes-list-->
 	</div> <!--/#downpart-->
+	</div>
 </div> <!--/notesController-->
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+<script type="text/javascript" src="../angular.min.js"></script>
 <script type="text/javascript" src="js/logic.js"></script>
 <script type="text/javascript" src="js/notesController.js"></script>
 </body>
