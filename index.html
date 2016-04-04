@@ -9,7 +9,7 @@
 </head>
 <body>
 <div ng-controller="notesController">
-	<div class="overlay"></div>
+	<div ng-class="{overlay: dim}"></div>
 	<div id="uppart">
 		<h1>My Task Board</h1>
 		<form ng-submit="addButton()">
